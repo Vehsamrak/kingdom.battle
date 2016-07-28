@@ -1,0 +1,13 @@
+# Intellij IDEA
+/.idea
+*.iml
+
+# Gradle
+/.gradle
+
+# Hibernate config
+/src/main/resources/hibernate.cfg.xml
+
+# Build artefacts
+/out
+/build
