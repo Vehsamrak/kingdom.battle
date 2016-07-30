@@ -1,4 +1,4 @@
-package battle.handler;
+package battle.Handler;
 
 import com.sun.net.httpserver.HttpServer;
 

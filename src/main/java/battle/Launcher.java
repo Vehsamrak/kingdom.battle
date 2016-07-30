@@ -1,6 +1,6 @@
 package battle;
 
-import battle.handler.ShutdownHandler;
+import battle.Handler.ShutdownHandler;
 import com.sun.net.httpserver.Authenticator;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpContext;
@@ -22,11 +22,11 @@ public class Launcher
     public void run() throws Exception
     {
         HttpServer server = HttpServer.create();
-        server.bind(new InetSocketAddress(7771), 0);
+        server.bind(new InetSocketAddress(8000), 0);
 
-        Runtime.getRuntime().addShutdownHook(new Thread(new ShutdownHandler(server), "Shutdown-thread"));
+        Runtime.getRuntime().addShutdownHook(new Thread(new ShutdownHandler(server), "shutdown-thread"));
 
-        HttpContext context = server.createContext("/", new EchoHandler());
+        HttpContext context = server.createContext("/test", new EchoHandler());
         context.setAuthenticator(new Auth());
 
         server.setExecutor(null);
@@ -38,17 +38,17 @@ public class Launcher
         @Override
         public void handle(HttpExchange exchange) throws IOException
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
 
-            builder.append("<h1>URI: ").append(exchange.getRequestURI()).append("</h1>");
+            stringBuilder.append("<h1>URI: ").append(exchange.getRequestURI()).append("</h1>");
 
             Headers headers = exchange.getRequestHeaders();
             for (String header : headers.keySet()) {
-                builder.append("<p>").append(header).append("=")
+                stringBuilder.append("<p>").append(header).append("=")
                        .append(headers.getFirst(header)).append("</p>");
             }
 
-            byte[] bytes = builder.toString().getBytes();
+            byte[] bytes = stringBuilder.toString().getBytes();
             exchange.sendResponseHeaders(200, bytes.length);
 
             OutputStream os = exchange.getResponseBody();
