@@ -1,6 +1,6 @@
 package battle;
 
-import battle.Handler.ShutdownHandler;
+import battle.handler.ShutdownHandler;
 import com.sun.net.httpserver.Authenticator;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpContext;
